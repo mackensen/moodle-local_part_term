@@ -26,13 +26,13 @@ defined('MOODLE_INTERNAL') || die();
 class local_part_term_part_term_testcase extends advanced_testcase {
     public function test_course_name_extraction() {
         global $CFG;
- 
+
         require_once($CFG->dirroot . '/local/part_term/locallib.php');
 
-	$this->resetAfterTest(true);
+        $this->resetAfterTest(true);
 
-	// Configure the plugin.
-	set_config('extractnametitle', '/[A-Z]+\s[0-9]+\.[0-9]+-[A-Za-z]+\s[0-9]{4,}\s(.*)/', 'local_part_term');
+        // Configure the plugin.
+        set_config('extractnametitle', '/[A-Z]+\s[0-9]+\.[0-9]+-[A-Za-z]+\s[0-9]{4,}\s(.*)/', 'local_part_term');
         set_config('extractnamedept', '/([A-Z]+)\s[0-9]+\.[0-9]+-[A-Za-z]+\s[0-9]{4,}\s.*/', 'local_part_term');
         set_config('extractnamenum', '/[A-Z]+\s([0-9]+)\.[0-9]+-[A-Za-z]+\s[0-9]{4,}\s.*/', 'local_part_term');
         set_config('extractnameterm', '/[A-Z]+\s[0-9]+\.[0-9]+-([A-Za-z]+\s[0-9]{4,})\s.*/', 'local_part_term');
@@ -40,20 +40,20 @@ class local_part_term_part_term_testcase extends advanced_testcase {
         set_config('extractnametermcode', '/[0-9]+\.([0-9]+)/', 'local_part_term');
         set_config('extractnametermcodetarget', PART_TERM_IDNUMBER, 'local_part_term');
 
-	// Create a test course.
-	$c1 = $this->getDataGenerator()->create_course(
-	    array(
-	        'fullname' => 'HIST 215.01-Spring 2017 History of Technology',
-		'shortname' => 'HIST 215.01-Spring 2017',
-		'idnumber' => '30425.201630'
-	    )
-	);
+        // Create a test course.
+        $c1 = $this->getDataGenerator()->create_course(
+            array(
+                'fullname' => 'HIST 215.01-Spring 2017 History of Technology',
+                'shortname' => 'HIST 215.01-Spring 2017',
+                'idnumber' => '30425.201630'
+            )
+        );
 
         // Test names.
         $fullnameformat  = '[DEPT] [NUM]-[TERM] [TITLE]';
         $shortnameformat = '[DEPT] [NUM].[SECTION]-[TERM]';
         $idnumberformat  = '[DEPT][NUM].[TERMCODE]';
- 
+
         // Assertions.
         $fullname = local_part_term_extract_names::get_default_fullname($c1, $fullnameformat);
         $this->assertEquals('HIST 215-Spring 2017 History of Technology', $fullname);
