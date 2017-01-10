@@ -96,9 +96,9 @@ if ($hassiteconfig) {
         $selectors
     ));
 
-    $settings->add(new admin_setting_configtext('local_part_term/extracttermcode',
-        new lang_string('extracttermcode', 'local_part_term'),
-        new lang_string('extracttermcode_desc', 'local_part_term'), '', PARAM_NOTAGS));
+    $settings->add(new admin_setting_configtext('local_part_term/extractnametermcode',
+        new lang_string('extractnametermcode', 'local_part_term'),
+        new lang_string('extractnametermcode_desc', 'local_part_term'), '', PARAM_NOTAGS));
 
     $settings->add(new admin_setting_configselect(
         'local_part_term/extractnametermcodetarget',
